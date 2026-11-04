@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Прототип главной ancomp.ru</title>
+<style>
+:root{--ink:#1f2024;--mid:#6b6d75;--line:#c9cbd1;--box:#eceef1;--box2:#dfe2e6;--note:#fff6d6;--noteline:#e8d48a}
+*{box-sizing:border-box}
+body{margin:0;font:15px/1.5 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:#fafafa}
+a{color:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+.top{padding:28px 0 8px}
+.top h1{font-size:26px;margin:0 0 6px}
+.top p{margin:0;color:var(--mid);max-width:760px}
+.legend{display:flex;flex-wrap:wrap;gap:16px;margin:16px 0 24px;font-size:13px;color:var(--mid)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:14px;height:14px;border:1px solid var(--line);display:inline-block;border-radius:3px}
+.blk{border:1.5px dashed var(--line);border-radius:10px;background:#fff;margin:0 0 18px;position:relative}
+.blk>.lbl{position:absolute;top:-11px;left:14px;background:var(--ink);color:#fff;font-size:12px;font-weight:600;padding:2px 10px;border-radius:20px;letter-spacing:.02em}
+.in{padding:26px 20px 18px}
+.note{background:var(--note);border:1px solid var(--noteline);border-radius:8px;padding:10px 12px;font-size:13px;margin-top:14px}
+.note b{font-weight:600}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.g{display:grid;gap:12px}
+.b{background:var(--box);border-radius:6px;padding:10px;font-size:13px;color:var(--mid);display:flex;align-items:center;justify-content:center;text-align:center;min-height:40px}
+.b.d{background:var(--box2)}
+.b.ph{background:repeating-linear-gradient(45deg,var(--box) 0 10px,var(--box2) 10px 20px)}
+.btn{border:2px solid var(--ink);border-radius:8px;padding:8px 14px;font-weight:600;font-size:13px;background:#fff;white-space:nowrap}
+.btn.p{background:var(--ink);color:#fff}
+.h{font-weight:700;color:var(--ink)}
+.t{color:var(--mid);font-size:13px}
+.grow{flex:1}
+.chip{border:1px solid var(--line);border-radius:20px;padding:3px 10px;font-size:12px;color:var(--mid);background:#fff}
+.badge{position:relative}
+.badge i{position:absolute;top:-7px;right:-7px;background:var(--ink);color:#fff;font-style:normal;font-size:10px;border-radius:10px;padding:0 5px}
+.hdr .util{font-size:12px;color:var(--mid);border-bottom:1px solid var(--box2);padding-bottom:8px;margin-bottom:10px}
+.c4{grid-template-columns:repeat(4,1fr)}.c3{grid-template-columns:repeat(3,1fr)}.c2{grid-template-columns:repeat(2,1fr)}
+.hero{grid-template-columns:1.1fr 1fr}
+.proj{grid-template-columns:2fr 1fr 1fr;grid-template-rows:150px 150px}
+.proj .big{grid-row:span 2}
+.sol{grid-template-columns:repeat(4,1fr)}
+.sol .w2{grid-column:span 2}
+.foot{grid-template-columns:1.3fr 1fr 1fr 1fr}
+.only-m{display:none}
+.toc{font-size:13px;color:var(--mid);columns:2;margin:0 0 22px;padding-left:18px}
+@media (max-width:760px){
+ .wrap{padding:0 14px}
+ .c4,.sol{grid-template-columns:repeat(2,1fr)}
+ .c3,.c2,.hero,.foot{grid-template-columns:1fr}
+ .proj{grid-template-columns:1fr 1fr;grid-template-rows:180px 110px 110px}
+ .proj .big{grid-column:span 2;grid-row:auto}
+ .sol .w2{grid-column:span 2}
+ .only-d{display:none}.only-m{display:flex}
+ .toc{columns:1}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <div class="top">
+  <p><a href="../">← Все материалы</a></p>
+  <h1>Прототип новой главной ancomp.ru</h1>
+  <p>Схема: какие блоки, в каком порядке и что в каждом. Без дизайна. Сузьте окно браузера или откройте с телефона, чтобы увидеть мобильную раскладку. Жёлтые плашки объясняют, зачем блок и что изменилось по сравнению с текущим сайтом.</p>
+ </div>
+ <div class="legend">
+  <span><i class="sw" style="background:var(--box)"></i>текст или элемент</span>
+  <span><i class="sw" style="background:repeating-linear-gradient(45deg,var(--box) 0 4px,var(--box2) 4px 8px)"></i>фото</span>
+  <span><i class="sw" style="background:var(--ink)"></i>основная кнопка</span>
+  <span><i class="sw" style="background:var(--note);border-color:var(--noteline)"></i>пояснение</span>
+ </div>
+ <ol class="toc">
+  <li>Шапка</li><li>Первый экран</li><li>Цифры и бренды</li><li>Популярные категории</li><li>Отраслевые решения</li><li>Проекты</li><li>Как мы работаем</li><li>Партнёрам и дилерам</li><li>Нам доверяют</li><li>Форма заявки</li><li>Новости</li><li>Поддержка, вакансии, рассылка</li><li>Подвал</li>
+ </ol>
+
+ <!-- 1 Header -->
+ <section class="blk hdr"><span class="lbl">1 · Шапка (закреплена при прокрутке)</span><div class="in">
+  <div class="row util only-d"><span>Производитель и системный интегратор с 1998 года</span><span class="grow"></span><span>+7 (499) 281-90-33</span><span>order@ancomp.ru</span><span class="chip">Заказать звонок</span></div>
+  <div class="row only-d">
+   <div class="b d" style="width:130px">Логотип</div>
+   <div class="btn p">☰ Каталог</div>
+   <div class="b grow" style="justify-content:flex-start">Поиск по каталогу: модель, артикул, категория…</div>
+   <span class="t">Решения · Услуги · Проекты · Компания</span>
+   <div class="b" style="min-width:44px">♡</div>
+   <div class="btn">Личный кабинет</div>
+   <div class="btn badge">Корзина<i>3</i></div>
+  </div>
+  <div class="row only-m" style="gap:8px">
+   <div class="b d" style="width:96px">Логотип</div><span class="grow"></span>
+   <div class="b" style="min-width:40px">Поиск</div><div class="btn" style="padding:8px 10px">ЛК</div><div class="btn badge" style="padding:8px 10px">Корзина<i>3</i></div><div class="b" style="min-width:40px">☰</div>
+  </div>
+  <div class="note"><b>Зачем.</b> «Личный кабинет» и «Корзина» со счётчиком — подписанные кнопки, а не мелкие иконки, на всех экранах, включая телефон. Корзина ведёт на отдельную страницу /cart. «Каталог» вынесен отдельной кнопкой с мегаменю, поиск по каталогу стоит в центре: дилер чаще ищет конкретную модель. Телефон, почта и «Заказать звонок» ушли в верхнюю строку. На телефоне они в бургер-меню, плюс кнопка звонка в нём.</div>
+ </div></section>
+
+ <!-- 2 Hero -->
+ <section class="blk"><span class="lbl">2 · Первый экран</span><div class="in">
+  <div class="g hero">
+   <div>
+    <div class="t">Производитель и системный интегратор с 1998 года</div>
+    <div class="h" style="font-size:24px;line-height:1.25;margin:6px 0 10px">Мультимедийное и IT-оборудование для бизнеса, школ и вузов</div>
+    <div class="t" style="margin-bottom:14px">Производим технику под брендами Ancomp, Antouch и Anlight. Проектируем, поставляем и запускаем объекты под ключ.</div>
+    <div class="row"><div class="btn p">Перейти в каталог</div><div class="btn">Стать партнёром</div></div>
+    <div class="row" style="margin-top:14px"><span class="t">Быстрый вход:</span><span class="chip">Дилерам</span><span class="chip">Школам и вузам</span><span class="chip">Компаниям</span><span class="chip">Госзаказчикам</span></div>
+   </div>
+   <div class="b ph" style="min-height:220px">Фото: оборудование в реальном проекте (LED-экран, переговорная, класс)</div>
+  </div>
+  <div class="note"><b>Зачем.</b> Вместо слайдера со статьями блога: одна фраза о том, кто такие и для кого, и две кнопки из брифа. Чипы «быстрого входа» ведут каждую аудиторию в свой раздел: дилера в условия партнёрства, школу в «Образование», компанию в «Переговорные». Слайдер на 12 слайдов убираем: дальше первого слайда его почти не листают, а на телефоне он медленно грузится.</div>
+ </div></section>
+
+ <!-- 3 Stats + brands -->
+ <section class="blk"><span class="lbl">3 · Цифры и свои бренды</span><div class="in">
+  <div class="g c4">
+   <div class="b"><span><b class="h">1998</b><br>на рынке с</span></div><div class="b"><span><b class="h">60+</b><br>инженеров</span></div><div class="b"><span><b class="h">50+</b><br>проектов в год</span></div><div class="b"><span><b class="h">10 000+</b><br>единиц техники в год</span></div>
+  </div>
+  <div class="g c3" style="margin-top:12px">
+   <div class="b d">Ancomp — компьютеры, LED, проекторы, ВКС</div><div class="b d">Antouch — интерактивные панели и доски</div><div class="b d">Anlight — сценический свет</div>
+  </div>
+  <div class="note"><b>Зачем.</b> Цифры стоят сразу под первым экраном полосой доверия. Бренды подписаны тем, что под ними выпускается, иначе Antouch и Anlight посетителю ничего не говорят. Каждый бренд ведёт в свой раздел каталога. Значок «Есть в реестре Минпромторга» важен для школ и госзаказчиков.</div>
+ </div></section>
+
+ <!-- 4 Categories -->
+ <section class="blk"><span class="lbl">4 · Популярные категории каталога</span><div class="in">
+  <div class="row" style="margin-bottom:10px"><span class="h">Каталог оборудования</span><span class="grow"></span><span class="chip">Скачать прайс-лист</span><span class="chip">Весь каталог →</span></div>
+  <div class="g c4">
+   <div class="b ph" style="min-height:110px">Интерактивные панели</div><div class="b ph">LED-экраны</div><div class="b ph">Моноблоки (реестр МПТ)</div><div class="b ph">Ноутбуки</div>
+   <div class="b ph" style="min-height:110px">Мобильные компьютерные классы</div><div class="b ph">Проекторы</div><div class="b ph">Видео-конференц-связь</div><div class="b ph">Световое оборудование</div>
+  </div>
+  <div class="note"><b>Зачем.</b> Быстрый доступ к каталогу из брифа: 8 самых востребованных категорий с фото товара на белом фоне. Под фото название и число моделей. Остальные категории в мегаменю «Каталог» и на странице каталога. На телефоне сетка в 2 колонки.</div>
+ </div></section>
+
+ <!-- 5 Solutions -->
+ <section class="blk"><span class="lbl">5 · Отраслевые решения</span><div class="in">
+  <div class="g sol">
+   <div class="b ph w2" style="min-height:120px">Конференц-залы и переговорные</div><div class="b ph">Образование</div><div class="b ph">Культура и сцена</div>
+   <div class="b ph" style="min-height:100px">Серверные и ЦОД</div><div class="b ph">Ритейл и HoReCa</div><div class="b ph">Музеи и выставки</div><div class="b ph">Диспетчерские</div>
+  </div>
+  <div class="note"><b>Зачем.</b> Для тех, кто пришёл с задачей («оснастить актовый зал»), а не за моделью. Все 7 направлений из брифа, у каждого 2–3 подраздела мелким текстом (школы, вузы, колледжи). Подпись не поверх пёстрого фото, а на затемнённой плашке, чтобы читалась.</div>
+ </div></section>
+
+ <!-- 6 Projects -->
+ <section class="blk"><span class="lbl">6 · Проекты</span><div class="in">
+  <div class="row" style="margin-bottom:10px"><span class="h">Реализованные проекты</span><span class="grow"></span><span class="chip">Все</span><span class="chip">Образование</span><span class="chip">Офисы</span><span class="chip">Культура</span><span class="chip">Промышленность</span></div>
+  <div class="g proj">
+   <div class="b ph big">Большое фото: Центр управления добычей «Газпромнефть-ННГ» · отрасль · что сделали</div><div class="b ph">Переговорные «Полюс»</div><div class="b ph">Медиафасад театра «ФЭСТ»</div><div class="b ph">LED-экран O'STIN</div><div class="b ph">Актовые залы 12 школ Москвы</div>
+  </div>
+  <div class="note"><b>Зачем.</b> Проекты — сильная сторона компании, поэтому блок поднят выше новостей и сделан крупно. На карточке: фото, заказчик, город, что поставили и сделали (например, «LED-стена 6×2 м, ВКС, монтаж»). Фильтр по отраслям. На телефоне — одна большая карточка и лента остальных.</div>
+ </div></section>
+
+ <!-- 7 How we work -->
+ <section class="blk"><span class="lbl">7 · Полный цикл: от проекта до сервиса</span><div class="in">
+  <div class="g" style="grid-template-columns:repeat(5,1fr)">
+   <div class="b">1. Проектирование</div><div class="b">2. Производство</div><div class="b">3. Поставка</div><div class="b">4. Монтаж и пусконаладка</div><div class="b">5. Гарантия и сервис</div>
+  </div>
+  <div class="note"><b>Зачем.</b> Короткая схема того, что Анкомп делает сам. Отличает производителя-интегратора от перепродавца. Каждый шаг ведёт на свою услугу. На телефоне — вертикальный список.</div>
+ </div></section>
+
+ <!-- 8 Partners -->
+ <section class="blk" style="border-color:#888"><span class="lbl">8 · Партнёрам и дилерам (заметный, контрастный блок)</span><div class="in">
+  <div class="g c2">
+   <div>
+    <div class="h" style="font-size:18px;margin-bottom:8px">Станьте партнёром Ancomp</div>
+    <div class="g c2">
+     <div class="b">Партнёрские цены и остатки в личном кабинете</div><div class="b">Заказ онлайн и история заказов</div><div class="b">Демо-фонд и обучение</div><div class="b">Маркетинговые материалы и сертификаты</div>
+    </div>
+    <div class="row" style="margin-top:12px"><div class="btn p">Стать партнёром</div><div class="btn">Войти в личный кабинет</div></div>
+   </div>
+   <div class="b ph" style="min-height:180px">Фото: склад, производство или демо-зал</div>
+  </div>
+  <div class="note"><b>Зачем.</b> Отдельный заметный блок для дилеров из брифа. Сейчас на сайте условий партнёрства нет, только форма. <b>Выгоды в схеме — черновик, их нужно подтвердить у клиента.</b> Вторая кнопка ведёт уже работающих партнёров прямо в ЛК.</div>
+ </div></section>
+
+ <!-- 9 Clients -->
+ <section class="blk"><span class="lbl">9 · Нам доверяют</span><div class="in">
+  <div class="g" style="grid-template-columns:repeat(6,1fr)"><div class="b">Газпромнефть</div><div class="b">Полюс</div><div class="b">РЖД</div><div class="b">Финуниверситет</div><div class="b">Школа «Летово»</div><div class="b">НМИЦ им. Блохина</div></div>
+  <div class="note"><b>Зачем.</b> Логотипы крупных заказчиков из реальных проектов — быстрый сигнал доверия для B2B и госзаказчиков. Список и разрешение на показ логотипов согласовать с клиентом.</div>
+ </div></section>
+
+ <!-- 10 Form -->
+ <section class="blk"><span class="lbl">10 · Форма заявки</span><div class="in">
+  <div class="g c2">
+   <div><div class="h" style="font-size:18px">Расскажите о задаче</div><div class="t">Инженер свяжется в течение рабочего дня и предложит решение и смету.</div><div class="t" style="margin-top:10px">Или напрямую: +7 (499) 650-78-02 · order@ancomp.ru</div></div>
+   <div class="g">
+    <div class="row"><span class="chip">Купить оборудование</span><span class="chip">Проект под ключ</span><span class="chip">Партнёрство</span></div>
+    <div class="g c2"><div class="b">Имя</div><div class="b">Телефон или почта</div></div>
+    <div class="b">Что нужно (необязательно)</div>
+    <div class="row"><div class="btn p">Отправить заявку</div><span class="t">Согласие на обработку данных</span></div>
+   </div>
+  </div>
+  <div class="note"><b>Зачем.</b> Простая форма из брифа: три поля вместо пяти, тип запроса — одним нажатием, чтобы заявка сразу ушла нужному отделу. Подписка на рассылку убрана из формы заявки, у неё свой блок.</div>
+ </div></section>
+
+ <!-- 11 News -->
+ <section class="blk"><span class="lbl">11 · Новости</span><div class="in">
+  <div class="g c3"><div class="b ph" style="min-height:90px">Новость</div><div class="b ph">Новость</div><div class="b ph">Новость</div></div>
+  <div class="note"><b>Зачем.</b> Компактно, три последних, в конце страницы. Новости показывают, что компания живая, но решение о покупке по ним не принимают.</div>
+ </div></section>
+
+ <!-- 12 Support -->
+ <section class="blk"><span class="lbl">12 · Техподдержка, вакансии, рассылка</span><div class="in">
+  <div class="g c3"><div class="b d" style="min-height:80px">Техподдержка и гарантия →</div><div class="b d">Вакансии →</div><div class="b d">Подписка: почта + кнопка</div></div>
+ </div></section>
+
+ <!-- 13 Footer -->
+ <section class="blk"><span class="lbl">13 · Подвал</span><div class="in">
+  <div class="g foot"><div class="b">Логотип, адрес, телефон, почта, мессенджер MAX</div><div class="b">Каталог: разделы</div><div class="b">Решения и услуги</div><div class="b">Компания, партнёрам, документы</div></div>
+ </div></section>
+</div>
+</body>
+</html>

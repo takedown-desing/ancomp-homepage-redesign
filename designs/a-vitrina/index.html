@@ -1,0 +1,1003 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ancomp — вариант A «Витрина»</title>
+<meta name="description" content="Макет главной ancomp.ru, вариант A «Витрина»: каталог на первом месте.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#17181E; --coral:#F15B47; --coral-btn:#D23E2A; --coral-btn-h:#B8321F;
+  --gray:#5D6771; --text2:#585867; --muted:#94949D; --bg2:#F5F5F7;
+  --line:#E4E5EA; --field:#7C8089; --white:#fff;
+  --r:16px; --r-lg:24px;
+  --shadow:0 1px 2px rgba(23,24,30,.04),0 8px 24px rgba(23,24,30,.06);
+  --shadow-h:0 2px 4px rgba(23,24,30,.06),0 16px 40px rgba(23,24,30,.12);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:#fff;color:var(--ink);font-family:"Montserrat",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;font-size:16px;line-height:1.55;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+h1,h2,h3,p{margin:0}
+:focus-visible{outline:3px solid var(--coral-btn);outline-offset:3px;border-radius:6px}
+.ic{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.wrap{max-width:1280px;margin:0 auto;padding:0 32px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border-radius:12px;font-weight:700;font-size:16px;border:2px solid transparent;transition:background .2s,border-color .2s,color .2s,transform .2s;white-space:nowrap}
+.btn-primary{background:var(--coral-btn);color:#fff}
+.btn-primary:hover{background:var(--coral-btn-h)}
+.btn-outline{border-color:var(--ink);color:var(--ink);background:transparent}
+.btn-outline:hover{background:var(--ink);color:#fff}
+.btn-ghost-w{border-color:rgba(255,255,255,.5);color:#fff}
+.btn-ghost-w:hover{background:#fff;color:var(--ink);border-color:#fff}
+.link{display:inline-flex;align-items:center;gap:8px;font-weight:700;color:var(--ink);min-height:44px;text-decoration:underline;text-decoration-color:var(--coral);text-decoration-thickness:2px;text-underline-offset:6px}
+.btn-sm{min-height:44px;padding:0 16px;font-size:14px;border-width:1.5px}
+input::placeholder,textarea::placeholder{color:var(--gray);opacity:1}
+.link .ic{transition:transform .2s}
+.link:hover .ic{transform:translateX(4px)}
+.link:hover{color:var(--coral-btn)}
+
+/* demo bar */
+.demo{background:#2A2B33;color:#E4E5EA;font-size:13px;font-weight:500}
+.demo .wrap{display:flex;gap:8px;align-items:center;min-height:32px;flex-wrap:wrap}
+.demo a{color:#fff;text-decoration:underline;text-underline-offset:2px;margin-left:auto}
+
+/* header */
+.hdr{position:sticky;top:0;z-index:60;background:#fff;border-bottom:1px solid var(--line)}
+.topbar{background:var(--bg2);font-size:13px;color:var(--text2)}
+.topbar .wrap{display:flex;align-items:center;gap:28px;min-height:40px}
+.topbar .desc{margin-right:auto;font-weight:500}
+.topbar a{display:inline-flex;align-items:center;gap:6px;font-weight:600;color:var(--ink)}
+.topbar a:hover{color:var(--coral-btn)}
+.topbar .ic{width:16px;height:16px;color:var(--gray)}
+.topbar .callback{color:var(--coral-btn)}
+.mainbar .wrap{display:flex;align-items:center;gap:16px;min-height:76px}
+.logo{display:flex;align-items:center;flex:none}
+.logo img{height:38px;width:auto}
+.btn-cat{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 20px;border-radius:12px;border:0;background:var(--ink);color:#fff;font-weight:700;font-size:15px;flex:none}
+.btn-cat:hover,.btn-cat[aria-expanded="true"]{background:var(--coral-btn)}
+.nav-main{display:flex;gap:2px;flex:none}
+.nav-main a{display:flex;align-items:center;min-height:44px;padding:0 12px;font-weight:600;font-size:15px;border-radius:10px}
+.nav-main a:hover{background:var(--bg2)}
+.search{flex:1;min-width:0;display:flex;align-items:center;gap:8px;height:48px;padding:0 6px 0 16px;border:1.5px solid var(--field);border-radius:12px;background:#fff;transition:border-color .2s}
+.search:focus-within{border-color:var(--ink)}
+.search input{flex:1;min-width:0;border:0;outline:0;background:transparent;font-size:15px;padding-right:12px;text-overflow:ellipsis}
+.search input::placeholder{color:var(--gray)}
+.search .ic{color:var(--gray)}
+.search button{border:0;background:var(--bg2);border-radius:8px;height:36px;padding:0 14px;font-weight:600;font-size:14px}
+.search button:hover{background:var(--line)}
+.actions{display:flex;align-items:center;gap:2px;flex:none}
+.act{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:68px;min-height:52px;padding:4px 6px;border-radius:12px;border:0;background:transparent;font-size:12px;font-weight:600;color:var(--ink)}
+.act:hover{background:var(--bg2)}
+.act .ic{width:22px;height:22px}
+.ic-box{position:relative;display:inline-flex}
+.count{position:absolute;top:-13px;left:16px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--coral-btn);color:#fff;font-size:11px;font-weight:700;line-height:18px;text-align:center;box-shadow:0 0 0 2px #fff}
+.only-m{display:none}
+.burger{display:none}
+
+/* mega menu */
+.mega{position:absolute;left:0;right:0;top:100%;background:#fff;border-top:1px solid var(--line);box-shadow:0 24px 48px rgba(23,24,30,.14);display:none;max-height:calc(100vh - 160px);overflow:auto}
+.mega.open{display:block}
+.mega .wrap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) 300px;gap:32px;padding-top:32px;padding-bottom:36px}
+.mega h3{font-size:15px;font-weight:700;margin-bottom:10px}
+.mega ul{list-style:none;margin:0 0 22px;padding:0}
+.mega li a{display:block;padding:6px 0;color:var(--text2);font-size:15px}
+.mega li a:hover{color:var(--coral-btn)}
+.mega-promo{background:var(--bg2);border-radius:var(--r);padding:22px;display:flex;flex-direction:column;gap:12px}
+.mega-promo p{color:var(--text2);font-size:14px}
+
+/* search drawer mobile */
+.msearch{display:none;padding:0 16px 12px}
+.msearch.open{display:block}
+
+/* drawer */
+.drawer{position:fixed;inset:0;z-index:80;display:none}
+.drawer.open{display:block}
+.drawer-bg{position:absolute;inset:0;background:rgba(23,24,30,.5)}
+.drawer-panel{position:absolute;top:0;right:0;bottom:0;width:min(400px,100%);background:#fff;overflow:auto;padding:16px 20px 32px;display:flex;flex-direction:column;gap:8px}
+.drawer-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.icon-btn{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border:0;border-radius:12px;background:var(--bg2)}
+.drawer nav a{display:flex;align-items:center;justify-content:space-between;min-height:52px;font-size:18px;font-weight:700;border-bottom:1px solid var(--line)}
+.drawer .contacts{margin-top:16px;display:flex;flex-direction:column;gap:10px;font-weight:600}
+.drawer .contacts a{display:flex;align-items:center;gap:10px;min-height:44px}
+
+/* sections */
+.sec{padding:96px 0}
+.sec-alt{background:var(--bg2)}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--coral-btn);margin-bottom:14px}
+.eyebrow::before{content:"";width:22px;height:3px;border-radius:2px;background:var(--coral)}
+.h2{font-size:clamp(28px,3.4vw,44px);line-height:1.12;font-weight:800;letter-spacing:-.02em}
+.lead{color:var(--text2);font-size:18px;max-width:640px;margin-top:14px}
+.head-links{display:flex;gap:16px 24px;flex-wrap:wrap;align-items:center}
+
+/* hero */
+.hero{background:var(--bg2);padding:64px 0 72px;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.02fr);gap:56px;align-items:center}
+.hero h1{font-size:clamp(32px,4.1vw,56px);line-height:1.07;font-weight:800;letter-spacing:-.025em;margin-bottom:22px}
+.hero h1 em{font-style:normal;color:var(--coral-btn)}
+.hero .sub{font-size:18px;color:var(--text2);max-width:540px;margin-bottom:32px}
+.hero .ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:32px}
+.quick{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.quick span{font-size:14px;color:var(--gray);font-weight:600;margin-right:4px}
+.chip{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:999px;background:#fff;border:1.5px solid var(--line);font-weight:600;font-size:14px;transition:border-color .2s,background .2s,color .2s}
+.chip:hover{border-color:var(--ink)}
+.hv{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);grid-template-rows:1fr 1fr;gap:16px;height:520px}
+.hv-card{position:relative;background:#fff;border-radius:var(--r-lg);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;gap:12px;padding:16px;min-height:0}
+.hv-card.main{grid-row:1/3}
+.hv-card .img{position:relative;flex:1;min-height:0;border-radius:12px;background:#fff}
+.hv-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+
+.hv-cap{flex:none;min-height:40px;padding:0 4px;font-size:13px;color:var(--gray);font-weight:600;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center}
+.hv-cap b{color:var(--ink);font-weight:700;font-size:15px}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;background:var(--ink);color:#fff;font-size:12px;font-weight:700}
+.badge .ic{width:15px;height:15px;color:var(--coral)}
+.hv-cap .badge{flex:none}
+
+/* stats */
+.stats{border-bottom:1px solid var(--line)}
+.stats .wrap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.stat{padding:36px 28px;border-left:1px solid var(--line)}
+.stat:first-child{border-left:0;padding-left:0}
+.stat b{display:block;font-size:clamp(32px,3.2vw,46px);font-weight:800;letter-spacing:-.02em;line-height:1.05}
+.stat b i{font-style:normal;color:var(--coral)}
+.stat span{display:block;margin-top:8px;color:var(--text2);font-size:15px;font-weight:500}
+
+/* categories */
+.cats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.cat{position:relative;display:flex;flex-direction:column;background:#fff;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);transition:box-shadow .25s,transform .25s}
+.cat:hover{box-shadow:var(--shadow-h);transform:translateY(-3px)}
+.cat .img{position:relative;aspect-ratio:4/3;background:#fff;padding:18px;overflow:hidden}
+.cat .img img{width:100%;height:100%;object-fit:contain;transition:transform .4s}
+.cat .img.cover img{object-fit:cover;border-radius:12px}
+.cat:hover .img img{transform:scale(1.04)}
+.cat .body{flex:1;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:16px 18px 18px;border-top:1px solid var(--line);min-height:96px}
+.cat .meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px}
+.cat h3{font-size:16px;font-weight:700;line-height:1.3}
+.cat small{color:var(--gray);font-size:13px;font-weight:500}
+.badge-sm{padding:4px 9px;font-size:11px;gap:4px}
+.badge-sm .ic{width:13px;height:13px}
+.arrow{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:var(--bg2);flex:none;transition:background .2s,color .2s}
+.cat:hover .arrow{background:var(--coral-btn);color:#fff}
+
+
+
+
+
+/* brands */
+.brands{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.brand{background:var(--bg2);border-radius:var(--r);padding:32px 28px;display:flex;flex-direction:column;gap:14px;transition:background .2s}
+.brand:hover{background:#EEEEF2}
+.brand .name{font-size:30px;font-weight:800;letter-spacing:-.02em}
+.brand .name i{font-style:normal;color:var(--coral)}
+.brand p{color:var(--text2);font-size:15px;flex:1}
+.registry{margin-top:20px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:24px;align-items:center;border:2px solid var(--ink);border-radius:var(--r);padding:26px 30px}
+.registry .shield{width:64px;height:64px;border-radius:16px;background:var(--ink);display:flex;align-items:center;justify-content:center}
+.registry .shield .ic{width:32px;height:32px;color:var(--coral)}
+.registry h3{font-size:20px;font-weight:800;line-height:1.3}
+.registry p{color:var(--text2);font-size:15px;margin-top:4px}
+
+/* solutions */
+.sols{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:280px;gap:16px}
+.sol{position:relative;border-radius:var(--r);overflow:hidden;background:var(--ink);color:#fff;display:flex;align-items:flex-end}
+.sol.w2{grid-column:span 2}
+.sol img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.sol::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,24,30,0) 30%,rgba(23,24,30,.88) 100%)}
+.sol.dim::after{background:linear-gradient(180deg,rgba(23,24,30,.45) 0%,rgba(23,24,30,.92) 100%)}
+.sol:hover img{transform:scale(1.05)}
+.sol-disp img{object-position:20% 70%}
+.sol.sol-disp::after{background:linear-gradient(180deg,rgba(23,24,30,.15) 0%,rgba(23,24,30,.7) 50%,rgba(23,24,30,.95) 100%)}
+.sol .t{text-shadow:0 1px 3px rgba(0,0,0,.4)}
+.sol .t{position:relative;z-index:1;padding:22px 22px 20px;display:flex;align-items:flex-end;justify-content:space-between;gap:12px;width:100%}
+.sol h3{font-size:20px;font-weight:700;line-height:1.25}
+.sol p{font-size:13px;color:rgba(255,255,255,.86);margin-top:6px;font-weight:500}
+.sol .arrow{background:rgba(255,255,255,.16);color:#fff}
+.sol:hover .arrow{background:var(--coral-btn)}
+
+/* projects */
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.filters button{min-height:44px;padding:0 18px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font-weight:600;font-size:14px}
+.filters button:hover{border-color:var(--ink)}
+.filters button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.projs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:250px;gap:16px}
+.pc{position:relative;border-radius:var(--r);overflow:hidden;background:#2A2B33;color:#fff;display:flex;align-items:flex-end}
+.pc.is-big{grid-column:span 2;grid-row:span 2}
+.pc[hidden]{display:none}
+.pc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.pc::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,24,30,0) 20%,rgba(23,24,30,.6) 55%,rgba(23,24,30,.94) 100%)}
+.pc.is-big::after{background:linear-gradient(180deg,rgba(23,24,30,0) 0%,rgba(23,24,30,.5) 40%,rgba(23,24,30,.96) 100%)}
+.pc:hover img{transform:scale(1.04)}
+.pc .t{position:relative;z-index:1;padding:20px 22px;text-shadow:0 1px 3px rgba(0,0,0,.35)}
+.pc .tag{display:inline-block;white-space:nowrap;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#fff;background:rgba(255,255,255,.18);padding:5px 10px;border-radius:999px;margin-bottom:10px;backdrop-filter:blur(4px)}
+.pc h3{font-size:17px;font-weight:700;line-height:1.3}
+.pc p{font-size:14px;color:#E4E5EA;margin-top:6px;display:none}
+.pc.is-big h3{font-size:clamp(20px,2vw,28px)}
+.pc.is-big p{display:block;max-width:520px}
+.pc.is-big .t{padding:28px 30px}
+.more{margin-top:28px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 40px;border-top:1px solid var(--line)}
+.more a{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:60px;padding:10px 0;border-bottom:1px solid var(--line);font-weight:600;font-size:15px}
+.more a[hidden]{display:none}
+.more a small{display:block;color:var(--gray);font-weight:500;font-size:13px}
+.more a:hover{color:var(--coral-btn)}
+.more-foot{margin-top:24px;display:flex;justify-content:flex-end}
+
+/* cycle */
+.cycle{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;counter-reset:s}
+.step{background:#fff;border-radius:var(--r);padding:26px 22px;position:relative}
+.step .num{font-size:13px;font-weight:800;color:var(--coral-btn);letter-spacing:.06em}
+.step .ico{width:52px;height:52px;border-radius:14px;background:var(--bg2);display:flex;align-items:center;justify-content:center;margin:14px 0 16px}
+.step .ico .ic{width:26px;height:26px}
+.step h3{font-size:17px;font-weight:700;line-height:1.3;margin-bottom:8px}
+.step p{color:var(--text2);font-size:14px}
+
+/* partners */
+.partners{background:var(--ink);color:#fff;padding:96px 0;position:relative;overflow:hidden}
+.partners::before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(241,91,71,.22),rgba(241,91,71,0) 70%);top:-180px;left:-160px;pointer-events:none}
+.partners .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:64px;align-items:center}
+.partners .eyebrow{color:var(--coral)}
+.partners .lead{color:#C9CAD1}
+.perks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:36px 0}
+.perk{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--r);padding:20px}
+.perk .ic{width:26px;height:26px;color:var(--coral);margin-bottom:12px}
+.perk h3{font-size:16px;font-weight:700;margin-bottom:4px}
+.perk p{font-size:14px;color:#C9CAD1}
+.partners .ctas{display:flex;gap:14px;flex-wrap:wrap}
+.p-side{display:flex;flex-direction:column;gap:16px}
+.lk{margin:0;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:var(--r-lg);padding:16px}
+.lk-label{display:flex;align-items:center;gap:8px;margin:0 0 12px;font-size:13px;font-weight:600;color:#C9CAD1}
+.lk-label::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--coral)}
+.lk-win{background:#fff;color:var(--ink);border-radius:14px;overflow:hidden;font-size:13px}
+.lk-bar{display:flex;align-items:center;gap:6px;padding:10px 14px;background:var(--bg2);border-bottom:1px solid var(--line);font-weight:600;color:var(--gray)}
+.lk-bar i{width:9px;height:9px;border-radius:50%;background:#C9CAD1}
+.lk-bar span{margin-left:8px}
+.lk-body{display:grid;grid-template-columns:128px minmax(0,1fr)}
+.lk-nav{list-style:none;margin:0;padding:12px 8px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:2px}
+.lk-nav li{padding:8px 10px;border-radius:8px;font-weight:600;color:var(--text2)}
+.lk-nav li.on{background:var(--ink);color:#fff}
+.lk-main{padding:14px 16px 16px;min-width:0}
+.lk-h{font-weight:700;font-size:14px;margin-bottom:10px}
+.lk-row{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr) minmax(0,.8fr) auto;gap:10px;align-items:center;padding:11px 0;border-top:1px solid var(--line)}
+.lk-head{font-size:12px;font-weight:600;color:var(--gray);border-top:0;padding-top:0}
+.sk{display:block;height:9px;border-radius:5px;background:#E4E5EA}
+.sk.w1{width:85%}.sk.w2{width:60%}.sk.w3{width:45%}
+.lk-add{font-size:12px;font-weight:700;color:#fff;background:var(--coral-btn);padding:5px 10px;border-radius:8px;white-space:nowrap}
+.note{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:16px 18px;font-size:14px;color:#E4E5EA}
+.note b{display:block;color:#fff;font-size:16px;margin-bottom:2px}
+
+
+
+
+/* clients */
+.clients{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px}
+.client{display:flex;align-items:center;justify-content:center;text-align:center;min-height:96px;padding:12px;border:1px solid var(--line);border-radius:var(--r);font-weight:800;font-size:15px;color:var(--gray);letter-spacing:-.01em;line-height:1.25;transition:color .2s,border-color .2s}
+.client:hover{color:var(--ink);border-color:var(--ink)}
+
+/* form */
+.form-wrap{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:64px;align-items:start}
+.next{list-style:none;margin:32px 0;padding:0;display:flex;flex-direction:column;gap:14px}
+.next li{display:flex;gap:12px;align-items:flex-start;color:var(--text2);font-size:15px}
+.next .ic{color:var(--coral-btn);margin-top:2px}
+.direct{display:flex;flex-direction:column;gap:6px}
+.direct a{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:18px;min-height:44px}
+.direct a:hover{color:var(--coral-btn)}
+.direct .ic{color:var(--gray)}
+.card-form{background:#fff;border-radius:var(--r-lg);padding:36px;box-shadow:var(--shadow)}
+fieldset{border:0;margin:0 0 22px;padding:0}
+legend,.lbl{display:block;font-size:14px;font-weight:700;margin-bottom:10px}
+.radios{display:flex;gap:8px;flex-wrap:wrap}
+.radios label{position:relative}
+.radios input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.radios span{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:999px;border:1.5px solid var(--field);font-weight:600;font-size:14px;transition:all .2s}
+.radios input:checked+span{background:var(--ink);border-color:var(--ink);color:#fff}
+.radios input:focus-visible+span{outline:3px solid var(--coral-btn);outline-offset:2px}
+.row2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.field{margin-bottom:18px}
+.field input,.field textarea{width:100%;min-height:52px;padding:14px 16px;border:1.5px solid var(--field);border-radius:12px;background:#fff;font-size:16px;transition:border-color .2s}
+.field textarea{min-height:104px;resize:vertical}
+.field input:focus,.field textarea:focus{outline:0;border-color:var(--ink)}
+.opt{color:var(--gray);font-weight:500}
+.agree{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--text2);margin:4px 0 22px}
+.agree input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--coral-btn);flex:none}
+.agree a{text-decoration:underline}
+.form-msg{margin-top:14px;font-size:14px;font-weight:600;color:var(--ink);background:var(--bg2);border-radius:10px;padding:12px 14px;display:none}
+.form-msg.show{display:block}
+
+/* news */
+.news{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.nc{display:flex;flex-direction:column;gap:16px;border:1px solid var(--line);border-radius:var(--r);padding:26px;transition:box-shadow .25s,transform .25s;min-height:240px}
+.nc:hover{box-shadow:var(--shadow-h);transform:translateY(-3px)}
+.nc .top{display:flex;align-items:center;justify-content:space-between}
+.nc .ico{width:48px;height:48px;border-radius:14px;background:var(--bg2);display:flex;align-items:center;justify-content:center}
+.nc .ico .ic{width:24px;height:24px;color:var(--coral-btn)}
+.nc time{font-size:13px;font-weight:600;color:var(--gray)}
+.nc h3{font-size:18px;font-weight:700;line-height:1.35;flex:1}
+.nc .tag{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray)}
+
+/* support */
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.tile{background:#fff;border-radius:var(--r);padding:30px;display:flex;flex-direction:column;gap:12px}
+.tile .ic.big{width:32px;height:32px;color:var(--coral-btn)}
+.tile h3{font-size:20px;font-weight:800}
+.tile p{color:var(--text2);font-size:15px;flex:1}
+.sub-form{display:flex;gap:8px}
+.sub-form input{flex:1;min-width:0;min-height:48px;padding:0 14px;border:1.5px solid var(--field);border-radius:12px;font-size:15px}
+.sub-form input:focus{outline:0;border-color:var(--ink)}
+.sub-form .btn{min-height:48px;padding:0 18px;font-size:15px}
+
+/* footer */
+.hint{display:none}
+.ftr{background:var(--ink);color:#C9CAD1;padding:72px 0 32px;font-size:15px}
+.ftr .grid{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,1fr));gap:40px}
+.ftr .logo img{height:40px}
+.ftr address{font-style:normal;margin-top:22px;line-height:1.7}
+.ftr h4,.fcol summary{margin:0 0 14px;color:#fff;font-size:15px;font-weight:700}
+.fcol summary{list-style:none;pointer-events:none;display:flex;justify-content:space-between;align-items:center}
+.fcol summary::-webkit-details-marker{display:none}
+.fcol summary .ic{display:none}
+.ftr ul{list-style:none;margin:0;padding:0}
+.ftr li a{display:inline-block;padding:5px 0}
+.ftr a:hover{color:#fff}
+.ftr .contacts a{display:flex;align-items:center;gap:8px;color:#fff;font-weight:600;min-height:36px}
+.ftr .contacts .ic{width:17px;height:17px;color:var(--coral)}
+.ftr .bottom{margin-top:56px;padding-top:24px;border-top:1px solid rgba(255,255,255,.12);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;color:#A4A5AE}
+
+/* responsive */
+@media (max-width:1240px){
+  .nav-main{display:none}
+  .burger{display:flex}
+  .mega .wrap{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .mega-promo{grid-column:1/-1;flex-direction:row;align-items:center;flex-wrap:wrap}
+}
+@media (max-width:1080px){
+  .wrap{padding:0 24px}
+  .sec,.partners{padding:80px 0}
+  .hero .wrap{grid-template-columns:minmax(0,1fr);gap:40px}
+  .hv{height:440px}
+  .cats{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .cycle{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .partners .wrap{grid-template-columns:minmax(0,1fr);gap:40px}
+  .clients{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .form-wrap{grid-template-columns:minmax(0,1fr);gap:40px}
+  .ftr .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sols{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:240px}
+  .projs{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:auto}
+  .pc{min-height:230px}
+  .pc.is-big{grid-row:auto;grid-column:1/-1;min-height:340px}
+}
+@media (max-width:768px){
+  .wrap{padding:0 16px}
+  .topbar,.btn-cat,.mainbar .search,.act.fav{display:none}
+  .only-m{display:flex}
+  .mainbar .wrap{min-height:64px;gap:8px}
+  .logo{margin-right:auto}
+  .logo img{height:26px}
+  .actions{gap:0}
+  .act{min-width:56px;min-height:52px;font-size:11px;padding:4px 2px}
+  .act.ico-m{min-width:44px}
+  .act.ico-m>span{display:none}
+  .count{top:-15px;left:18px}
+  .sec,.partners{padding:48px 0}
+  .sec-head{margin-bottom:24px;gap:12px}
+  .eyebrow{margin-bottom:10px}
+  .lead{font-size:15px;margin-top:10px}
+  .hscroll{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:0 -16px;padding:0 16px 6px;scroll-padding:0 16px;scrollbar-width:none}
+  .hscroll::-webkit-scrollbar{display:none}
+  .hscroll>*{scroll-snap-align:start;flex:0 0 84%}
+  .hint{display:flex;align-items:center;gap:6px;margin-top:10px;font-size:13px;font-weight:600;color:var(--gray)}
+  .hint .ic{width:16px;height:16px}
+  .hero{padding:24px 0 32px}
+  .hero .wrap{gap:0}
+  .hero h1{margin-bottom:14px}
+  .hero .sub{font-size:15px;margin-bottom:20px}
+  .hero .ctas{margin-bottom:0;gap:10px}
+  .hero .ctas .btn{flex:1 1 auto}
+  .quick,.hv{display:none}
+  .stats .wrap{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stat{padding:18px 12px;border-left:0;border-top:1px solid var(--line)}
+  .stat:nth-child(-n+2){border-top:0}
+  .stat:nth-child(odd){padding-left:0;border-right:1px solid var(--line)}
+  .stat b{font-size:28px}
+  .stat span{font-size:13px;margin-top:4px}
+  .cats{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .cat .img{padding:10px}
+  .cat .body{padding:10px 12px 12px;min-height:0}
+  .cat h3{font-size:14px}
+  .cat small{font-size:12px}
+  .cat .arrow{display:none}
+  .brand{padding:22px 20px}
+  .brand .name{font-size:24px}
+  .brand p{font-size:14px}
+  .registry{grid-template-columns:48px minmax(0,1fr);padding:18px;gap:12px 14px;margin-top:16px}
+  .registry .shield{width:48px;height:48px;border-radius:12px}
+  .registry .shield .ic{width:24px;height:24px}
+  .registry h3{font-size:16px}
+  .registry p{font-size:14px}
+  .registry .btn{grid-column:1/-1;width:100%}
+  .sols{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:160px;gap:10px}
+  .sol h3{font-size:15px}
+  .sol p,.sol .arrow{display:none}
+  .sol .t{padding:12px}
+  .projs{gap:10px}
+  .pc{min-height:200px}
+  .pc.is-big{min-height:280px}
+  .pc .t{padding:12px}
+  .pc h3{font-size:14px}
+  .pc .tag{font-size:10px;padding:4px 8px;margin-bottom:6px}
+  .pc:not(.is-big) .city{display:none}
+  .filters{flex:0 0 calc(100% + 32px);flex-wrap:nowrap;overflow-x:auto;margin:0 -16px;padding:0 16px 4px;scrollbar-width:none}
+  .filters::-webkit-scrollbar{display:none}
+  .filters button{flex:none}
+  .pc.is-big .t{padding:18px}
+  .pc.is-big h3{font-size:19px}
+  .more{grid-template-columns:minmax(0,1fr);margin-top:20px}
+  .more-foot .btn{width:100%}
+  .step{padding:20px}
+  .step .ico{margin:10px 0 12px}
+  .perks{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:24px 0}
+  .perk{padding:14px}
+  .perk .ic{width:22px;height:22px;margin-bottom:8px}
+  .perk h3{font-size:14px}
+  .perk p{font-size:13px}
+  .partners .ctas .btn{width:100%}
+  .lk{display:none}
+  .clients{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .client{min-height:64px;font-size:13px}
+  .next{display:none}
+  .direct{margin-top:20px}
+  .direct a{font-size:16px}
+  .card-form{padding:20px 16px}
+  .card-form .btn{width:100%}
+  .row2{grid-template-columns:minmax(0,1fr);gap:0}
+  .nc{min-height:0;padding:20px}
+  .tiles{grid-template-columns:minmax(0,1fr);gap:10px}
+  .tile{padding:20px;gap:8px}
+  .tile h3{font-size:18px}
+  .tile p{font-size:14px}
+  .ftr{padding:48px 0 24px}
+  .ftr .grid{grid-template-columns:minmax(0,1fr);gap:0}
+  .ftr .grid>div:first-child{margin-bottom:24px}
+  .fcol{border-top:1px solid rgba(255,255,255,.12)}
+  .fcol summary{pointer-events:auto;cursor:pointer;min-height:52px;margin:0}
+  .fcol summary .ic{display:block;transition:transform .2s}
+  .fcol[open] summary .ic{transform:rotate(180deg)}
+  .fcol ul{padding-bottom:12px}
+  .ftr .bottom{margin-top:24px}
+}
+@media (max-width:380px){
+  .act{min-width:52px;font-size:10px}
+  .act.ico-m{min-width:42px}
+  .logo img{height:22px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></symbol>
+  <symbol id="i-cart" viewBox="0 0 24 24"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5M12 15V3"/></symbol>
+  <symbol id="i-video" viewBox="0 0 24 24"><path d="m16 13 5.22 3.48a.5.5 0 0 0 .78-.42V7.87a.5.5 0 0 0-.75-.43L16 10.5"/><rect x="2" y="6" width="14" height="12" rx="2"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></symbol>
+  <symbol id="i-factory" viewBox="0 0 24 24"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M17 18h1M12 18h1M7 18h1"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+  <symbol id="i-life" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24M14.83 9.17l4.24-4.24M14.83 14.83l4.24 4.24M9.17 14.83l-4.24 4.24"/><circle cx="12" cy="12" r="4"/></symbol>
+  <symbol id="i-briefcase" viewBox="0 0 24 24"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M12.59 2.59A2 2 0 0 0 11.17 2H4a2 2 0 0 0-2 2v7.17a2 2 0 0 0 .59 1.42l8.7 8.7a2.43 2.43 0 0 0 3.42 0l6.58-6.58a2.43 2.43 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r="1"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4M12 16h4M8 11h.01M8 16h.01"/></symbol>
+  <symbol id="i-cap" viewBox="0 0 24 24"><path d="M21.42 10.92a1 1 0 0 0-.02-1.84L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.83l8.57 3.91a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8M16 17H8M10 9H8"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><rect width="20" height="8" x="2" y="2" rx="2"/><rect width="20" height="8" x="2" y="14" rx="2"/><path d="M6 6h.01M6 18h.01"/></symbol>
+  <symbol id="i-calc" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M8 6h8M16 14v4M16 10h.01M12 10h.01M8 10h.01M12 14h.01M8 14h.01M12 18h.01M8 18h.01"/></symbol>
+  <symbol id="i-msg" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 4.99-5.54 10.19-7.4 11.8a1 1 0 0 1-1.2 0C9.54 20.19 4 14.99 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></symbol>
+</svg>
+
+<div class="demo"><div class="wrap">
+  <span>Макет главной · Вариант A «Витрина» · не финальный дизайн</span>
+  <a href="../../">← все варианты</a>
+</div></div>
+
+<header class="hdr" id="top">
+  <div class="topbar"><div class="wrap">
+    <span class="desc">Производитель и системный интегратор с 1998 года</span>
+    <a href="tel:+74992819033"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg>+7 (499) 281-90-33</a>
+    <a href="mailto:order@ancomp.ru"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg>order@ancomp.ru</a>
+    <a href="#request" class="callback">Заказать звонок</a>
+  </div></div>
+
+  <div class="mainbar"><div class="wrap">
+    <a class="logo" href="#top" aria-label="Ancomp — на главную"><img src="../../assets/img/logo-transparent.png" width="1680" height="468" alt="Ancomp"></a>
+    <button class="btn-cat" id="catBtn" aria-expanded="false" aria-controls="mega"><svg class="ic" aria-hidden="true"><use href="#i-grid"/></svg>Каталог</button>
+    <nav class="nav-main" aria-label="Основное меню">
+      <a href="#solutions">Решения</a><a href="#cycle">Услуги</a><a href="#projects">Проекты</a><a href="#company">Компания</a>
+    </nav>
+    <form class="search" role="search" action="#">
+      <svg class="ic" aria-hidden="true"><use href="#i-search"/></svg>
+      <label class="sr" for="q">Поиск по каталогу</label>
+      <input id="q" type="search" placeholder="Поиск">
+      <button type="submit">Найти</button>
+    </form>
+    <div class="actions">
+      <button class="act only-m ico-m" id="searchBtn" aria-label="Поиск по каталогу" aria-expanded="false" aria-controls="msearch"><svg class="ic" aria-hidden="true"><use href="#i-search"/></svg></button>
+      <a class="act only-m ico-m" href="tel:+74992819033" aria-label="Позвонить: +7 (499) 281-90-33"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg></a>
+      <a class="act fav" href="/favorites"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg><span>Избранное</span></a>
+      <a class="act" href="/lk" aria-label="Личный кабинет"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg></span><span>Кабинет</span></a>
+      <a class="act" href="/cart" aria-label="Корзина, товаров: 2"><span class="ic-box"><svg class="ic" aria-hidden="true"><use href="#i-cart"/></svg><span class="count" aria-hidden="true">2</span></span><span>Корзина</span></a>
+      <button class="act burger ico-m" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="drawer"><svg class="ic" aria-hidden="true"><use href="#i-menu"/></svg><span>Меню</span></button>
+    </div>
+  </div></div>
+
+  <div class="msearch" id="msearch">
+    <form class="search" role="search" action="#" style="display:flex">
+      <svg class="ic" aria-hidden="true"><use href="#i-search"/></svg>
+      <label class="sr" for="q2">Поиск по каталогу</label>
+      <input id="q2" type="search" placeholder="Поиск по каталогу">
+      <button type="submit">Найти</button>
+    </form>
+  </div>
+
+  <div class="mega" id="mega">
+    <div class="wrap">
+      <div>
+        <h3>Интерактивное оборудование</h3>
+        <ul><li><a href="#">Интерактивные панели Antouch</a></li><li><a href="#">Дисплеи для видеостен</a></li><li><a href="#">Мобильные компьютерные классы</a></li><li><a href="#">Робототехника</a></li></ul>
+        <h3>Проекционное оборудование</h3>
+        <ul><li><a href="#">Проекторы</a></li><li><a href="#">Проекционный калькулятор</a></li></ul>
+      </div>
+      <div>
+        <h3>Компьютерная техника</h3>
+        <ul><li><a href="#">Моноблоки из реестра Минпромторга</a></li><li><a href="#">Ноутбуки</a></li><li><a href="#">Серверы</a></li></ul>
+        <h3>Видео-конференц-связь</h3>
+        <ul><li><a href="#">Видеобары</a></li></ul>
+      </div>
+      <div>
+        <h3>LED-экраны</h3>
+        <ul><li><a href="#">LED-экраны для помещений</a></li></ul>
+        <h3>Световое оборудование Anlight</h3>
+        <ul><li><a href="#">Вращающиеся головы</a></li></ul>
+        <a class="link" href="#">Весь каталог <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="mega-promo">
+        <svg class="ic" style="width:32px;height:32px;color:var(--coral-btn)" aria-hidden="true"><use href="#i-download"/></svg>
+        <b>Прайс-лист и каталог в PDF</b>
+        <p>Актуальные модели и характеристики. Партнёрские цены видны в личном кабинете.</p>
+        <a class="link" href="#">Скачать прайс-лист <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer-bg" data-close></div>
+  <div class="drawer-panel" role="dialog" aria-modal="true" aria-label="Меню">
+    <div class="drawer-top">
+      <img src="../../assets/img/logo-transparent.png" width="1680" height="468" alt="Ancomp" style="height:30px;width:auto">
+      <button class="icon-btn" data-close aria-label="Закрыть меню"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+    <nav aria-label="Меню">
+      <a href="#categories" data-close>Каталог <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a href="#solutions" data-close>Решения <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a href="#cycle" data-close>Услуги <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a href="#projects" data-close>Проекты <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a href="#company" data-close>Компания <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a href="#partners" data-close>Партнёрам <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a href="/favorites">Избранное <svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></a>
+    </nav>
+    <div class="contacts">
+      <a href="tel:+74992819033"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg>+7 (499) 281-90-33</a>
+      <a href="mailto:order@ancomp.ru"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg>order@ancomp.ru</a>
+      <a class="btn btn-primary" href="#request" data-close>Заказать звонок</a>
+    </div>
+  </div>
+</div>
+
+<main>
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Производитель и системный интегратор с 1998 года</div>
+      <h1>Мультимедийное и IT-оборудование <em>от&nbsp;производителя</em></h1>
+      <p class="sub">Интерактивные панели, LED-экраны, компьютеры и свет под брендами Ancomp, Antouch и Anlight. Продаём через партнёров и сами оснащаем объекты под ключ.</p>
+      <div class="ctas">
+        <a class="btn btn-primary" href="#categories">Перейти в каталог <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-outline" href="#partners">Стать партнёром</a>
+      </div>
+      <div class="quick">
+        <span>Кому:</span>
+        <a class="chip" href="#partners">Дилерам</a>
+        <a class="chip" href="#solutions">Школам и вузам</a>
+        <a class="chip" href="#solutions">Компаниям</a>
+        <a class="chip" href="#registry">Госзаказчикам</a>
+      </div>
+    </div>
+    <div class="hv" aria-label="Оборудование Ancomp">
+      <a class="hv-card main" href="#categories">
+        <div class="img"><img src="../../assets/img/p-panel.jpg" width="800" height="600" alt="Интерактивная панель Antouch" fetchpriority="high"></div>
+        <div class="hv-cap"><span><b>Интерактивные панели</b><br>Antouch</span><span class="arrow"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></div>
+      </a>
+      <a class="hv-card" href="#registry">
+
+        <div class="img"><img src="../../assets/img/p-monoblock.jpg" width="800" height="600" alt="Моноблок Ancomp"></div>
+        <div class="hv-cap"><span><b>Моноблоки</b></span><span class="badge badge-sm" title="Реестр Минпромторга"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>Реестр МПТ</span></div>
+      </a>
+      <a class="hv-card" href="#categories">
+        <div class="img"><img src="../../assets/img/p-laptop.jpg" width="800" height="600" alt="Ноутбук Ancomp"></div>
+        <div class="hv-cap"><span><b>Ноутбуки</b> · Ancomp</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats" aria-label="Анкомп в цифрах">
+  <div class="wrap">
+    <div class="stat"><b>1998</b><span>работаем на рынке с этого года</span></div>
+    <div class="stat"><b>60<i>+</i></b><span>инженеров в штате</span></div>
+    <div class="stat"><b>50<i>+</i></b><span>проектов в год</span></div>
+    <div class="stat"><b>10 000<i>+</i></b><span>единиц техники в год</span></div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="sec sec-alt" id="categories">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">Каталог</div>
+        <h2 class="h2">Популярные категории</h2>
+      </div>
+      <div class="head-links">
+        <a class="btn btn-outline btn-sm" href="#"><svg class="ic" aria-hidden="true"><use href="#i-download"/></svg>Скачать прайс-лист</a>
+        <a class="link" href="#">Весь каталог <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+    </div>
+    <div class="cats">
+      <a class="cat" href="#"><div class="img"><img src="../../assets/img/p-panel.jpg" width="800" height="600" alt="" loading="lazy"></div><div class="body"><div><h3>Интерактивные панели</h3><div class="meta"><small>Antouch</small></div></div><span class="arrow"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></div></a>
+      <a class="cat" href="#"><div class="img cover"><img src="../../assets/img/p-led.jpg" width="900" height="506" alt="" loading="lazy"></div><div class="body"><div><h3>LED-экраны</h3><div class="meta"><small>Ancomp</small></div></div><span class="arrow"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></div></a>
+      <a class="cat" href="#"><div class="img"><img src="../../assets/img/p-monoblock.jpg" width="800" height="600" alt="" loading="lazy"></div><div class="body"><div><h3>Моноблоки</h3><div class="meta"><small>Ancomp</small><span class="badge badge-sm" title="Реестр Минпромторга"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>Реестр МПТ</span></div></div><span class="arrow"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></div></a>
+      <a class="cat" href="#"><div class="img"><img src="../../assets/img/p-laptop.jpg" width="800" height="600" alt="" loading="lazy"></div><div class="body"><div><h3>Ноутбуки</h3><div class="meta"><small>Ancomp</small></div></div><span class="arrow"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></div></a>
+      <a class="cat" href="#"><div class="img"><img src="../../assets/img/p-mobileclass.jpg" width="800" height="600" alt="" loading="lazy"></div><div class="body"><div><h3>Мобильные компьютерные классы</h3><div class="meta"><small>Ancomp LearnMate</small></div></div><span class="arrow"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></div></a>
+      <a class="cat" href="#"><div class="img"><img src="../../assets/img/p-projector.jpg" width="800" height="600" alt="" loading="lazy"></div><div class="body"><div><h3>Проекторы</h3><div class="meta"><small>Ancomp</small></div></div><span class="arrow"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></div></a>
+      <a class="cat" href="#"><div class="img"><img src="../../assets/img/p-light.jpg" width="800" height="600" alt="" loading="lazy"></div><div class="body"><div><h3>Сценический свет</h3><div class="meta"><small>Anlight</small></div></div><span class="arrow"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></div></a>
+      <a class="cat" href="#"><div class="img"><img src="../../assets/img/p-vks.jpg" width="800" height="600" alt="" loading="lazy"></div><div class="body"><div><h3>Видео-конференц-связь</h3><div class="meta"><small>Ancomp</small></div></div><span class="arrow"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- BRANDS -->
+<section class="sec" id="company">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">О компании</div>
+        <h2 class="h2">Три своих бренда</h2>
+        <p class="lead">Разрабатываем и выпускаем технику сами, поэтому знаем её устройство и отвечаем за гарантию напрямую.</p>
+      </div>
+      <a class="link" href="#">О компании <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+    <div class="brands hscroll">
+      <a class="brand" href="#"><div class="name">ancomp<i>.</i></div><p>Компьютеры и моноблоки, LED-экраны, проекторы, видео-конференц-связь.</p><span class="link">Техника Ancomp <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+      <a class="brand" href="#"><div class="name">antouch<i>.</i></div><p>Интерактивные панели и доски для классов, аудиторий и переговорных.</p><span class="link">Техника Antouch <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+      <a class="brand" href="#"><div class="name">anlight<i>.</i></div><p>Сценический свет для театров, актовых и концертных залов.</p><span class="link">Техника Anlight <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+    </div>
+    <p class="hint" aria-hidden="true"><svg class="ic"><use href="#i-arrow"/></svg>листайте</p>
+    <div class="registry" id="registry">
+      <div class="shield"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg></div>
+      <div>
+        <h3>Моноблоки и ПК Ancomp в реестре Минпромторга</h3>
+        <p>Это важно для школ, вузов и госзаказчиков, которые закупают по 44-ФЗ и 223-ФЗ.</p>
+      </div>
+      <a class="btn btn-outline" href="#">Техника из реестра</a>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTIONS -->
+<section class="sec sec-alt" id="solutions">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">Отраслевые решения</div>
+        <h2 class="h2">Оснащаем объекты под задачу</h2>
+        <p class="lead">Подбираем технику, проектируем и монтируем. Вам не нужно собирать комплект из разных каталогов.</p>
+      </div>
+      <a class="link" href="#">Все решения <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+    <div class="sols">
+      <a class="sol w2" href="#"><img src="../../assets/img/sol-konferenc-zaly-peregovornye.jpg" width="768" height="420" alt="" loading="lazy"><div class="t"><div><h3>Конференц-залы и переговорные</h3><p>Переговорные, конференц-залы, кабинеты руководителей</p></div><span class="arrow"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></div></a>
+      <a class="sol" href="#"><img src="../../assets/img/sol-obrazovatelnye-prostranstva.jpg" width="1400" height="1050" alt="" loading="lazy"><div class="t"><div><h3>Образование</h3><p>Школы, колледжи, вузы</p></div><span class="arrow"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></div></a>
+      <a class="sol" href="#"><img src="../../assets/img/sol-scenicheskie-prostranstva.jpg" width="1400" height="1050" alt="" loading="lazy"><div class="t"><div><h3>Культура и сцена</h3><p>Театры, актовые и концертные залы</p></div><span class="arrow"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></div></a>
+      <a class="sol" href="#"><img src="../../assets/img/sol-servernye-tsod.jpg" width="1400" height="750" alt="" loading="lazy"><div class="t"><div><h3>Серверные и ЦОД</h3><p>Серверы и инфраструктура</p></div><span class="arrow"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></div></a>
+      <a class="sol" href="#"><img src="../../assets/img/sol-retail-horeca.jpg" width="1095" height="814" alt="" loading="lazy"><div class="t"><div><h3>Ритейл и HoReCa</h3><p>Магазины, рестораны, отели</p></div><span class="arrow"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></div></a>
+      <a class="sol" href="#"><img src="../../assets/img/sol-muzei.jpg" width="1400" height="1050" alt="" loading="lazy"><div class="t"><div><h3>Музеи и выставки</h3><p>Экспозиции и мультимедиа</p></div><span class="arrow"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></div></a>
+      <a class="sol sol-disp" href="#"><img src="../../assets/img/sol-dispetcherskie-situacionnye-centry.jpg" width="1400" height="1050" alt="" loading="lazy"><div class="t"><div><h3>Диспетчерские и ситуационные центры</h3><p>Видеостены и пульты</p></div><span class="arrow"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="sec" id="projects">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">Проекты</div>
+        <h2 class="h2">Что мы уже сделали</h2>
+      </div>
+      <div class="filters" role="group" aria-label="Фильтр по отраслям">
+        <button type="button" data-f="all" aria-pressed="true">Все</button>
+        <button type="button" data-f="edu" aria-pressed="false">Образование</button>
+        <button type="button" data-f="biz" aria-pressed="false">Промышленность и офисы</button>
+        <button type="button" data-f="cult" aria-pressed="false">Культура и ритейл</button>
+      </div>
+    </div>
+    <div class="projs" id="projs">
+      <a class="pc is-big" href="#" data-c="biz"><img src="../../assets/img/pr-gazprom-cud.jpg" width="1600" height="1066" alt="Центр управления добычей" decoding="async"><div class="t"><span class="tag">Промышленность<span class="city"> · Ноябрьск</span></span><h3>Центр управления добычей «Газпромнефть-Ноябрьскнефтегаз»</h3><p>Видеостена, рабочие места операторов, монтаж и настройка.</p></div></a>
+      <a class="pc" href="#" data-c="biz"><img src="../../assets/img/pr-polyus.jpg" width="1600" height="1200" alt="Переговорная «Полюс»" decoding="async"><div class="t"><span class="tag">Офисы</span><h3>Конференц-залы и кабинет руководства «Полюс»</h3><p>Видеостена и видео-конференц-связь в переговорных.</p></div></a>
+      <a class="pc" href="#" data-c="cult"><img src="../../assets/img/pr-fest-facade.jpg" width="1600" height="900" alt="Медиафасад театра «ФЭСТ»" decoding="async"><div class="t"><span class="tag">Культура<span class="city"> · Мытищи</span></span><h3>Театр «ФЭСТ»: переоснащение и медиафасад</h3><p>Новое оборудование сцены и LED-экран на фасаде.</p></div></a>
+      <a class="pc" href="#" data-c="cult"><img src="../../assets/img/pr-ostin.jpg" width="1600" height="996" alt="LED-экран в магазине O'STIN" decoding="async"><div class="t"><span class="tag">Ритейл<span class="city"> · Новосибирск</span></span><h3>LED-экран в магазине O'STIN</h3><p>Экран в торговом зале, монтаж на объекте.</p></div></a>
+      <a class="pc" href="#" data-c="edu"><img src="../../assets/img/pr-aktzaly.jpg" width="1172" height="552" alt="Актовый зал школы" decoding="async"><div class="t"><span class="tag">Образование<span class="city"> · Москва</span></span><h3>Актовые залы в 12 школах Москвы</h3><p>Оснащение актовых залов под ключ.</p></div></a>
+    </div>
+    <div class="more" id="more">
+      <a href="#" data-c="edu"><span>Переоснащение школы №9<small>Образование · Донецк</small></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a href="#" data-c="edu"><span>Ситуационный центр Финансового университета<small>Образование · Москва</small></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a href="#" data-c="edu"><span>Мобильные классы Ancomp LearnMate для 51 школы<small>Образование</small></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a href="#" data-c="biz"><span>Конгресс-система и ВКС на ГОК «Вернинское»<small>Промышленность</small></span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+    <div class="more-foot"><a class="btn btn-outline" href="#">Все проекты</a></div>
+  </div>
+</section>
+
+<!-- CYCLE -->
+<section class="sec sec-alt" id="cycle">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">Услуги</div>
+        <h2 class="h2">Полный цикл: от проекта до сервиса</h2>
+        <p class="lead">Всё делаем сами, без посредников между этапами.</p>
+      </div>
+      <a class="link" href="#">Все услуги <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+    <div class="cycle hscroll">
+      <div class="step"><span class="num">01</span><div class="ico"><svg class="ic" aria-hidden="true"><use href="#i-pen"/></svg></div><h3>Проектирование</h3><p>Смотрим объект, подбираем технику и считаем смету.</p></div>
+      <div class="step"><span class="num">02</span><div class="ico"><svg class="ic" aria-hidden="true"><use href="#i-factory"/></svg></div><h3>Производство</h3><p>Выпускаем технику под брендами Ancomp, Antouch и Anlight.</p></div>
+      <div class="step"><span class="num">03</span><div class="ico"><svg class="ic" aria-hidden="true"><use href="#i-truck"/></svg></div><h3>Поставка</h3><p>Привозим оборудование на объект или партнёру.</p></div>
+      <div class="step"><span class="num">04</span><div class="ico"><svg class="ic" aria-hidden="true"><use href="#i-wrench"/></svg></div><h3>Монтаж и пусконаладка</h3><p>Устанавливаем и настраиваем силами своих инженеров.</p></div>
+      <div class="step"><span class="num">05</span><div class="ico"><svg class="ic" aria-hidden="true"><use href="#i-life"/></svg></div><h3>Гарантия и сервис</h3><p>Ремонтируем, обслуживаем и обучаем персонал.</p></div>
+    </div>
+    <p class="hint" aria-hidden="true"><svg class="ic"><use href="#i-arrow"/></svg>листайте</p>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section class="partners" id="partners">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Партнёрам и дилерам</div>
+      <h2 class="h2">Продавайте технику Ancomp вместе с нами</h2>
+      <p class="lead">Работаем с дилерами, интеграторами и поставщиками для школ и госзаказчиков по всей России.</p>
+      <div class="perks">
+        <div class="perk"><svg class="ic" aria-hidden="true"><use href="#i-tag"/></svg><h3>Партнёрские цены</h3><p>Цены и остатки видны в личном кабинете.</p></div>
+        <div class="perk"><svg class="ic" aria-hidden="true"><use href="#i-list"/></svg><h3>Заказ онлайн</h3><p>Корзина, счёт и история заказов в одном месте.</p></div>
+        <div class="perk"><svg class="ic" aria-hidden="true"><use href="#i-cap"/></svg><h3>Демо и обучение</h3><p>Покажем технику и обучим ваших менеджеров.</p></div>
+        <div class="perk"><svg class="ic" aria-hidden="true"><use href="#i-file"/></svg><h3>Материалы</h3><p>Сертификаты, презентации и фото для ваших тендеров.</p></div>
+      </div>
+      <div class="ctas">
+        <a class="btn btn-primary" href="#request">Стать партнёром <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-ghost-w" href="/lk"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg>Войти в кабинет</a>
+      </div>
+    </div>
+    <div class="p-side">
+      <figure class="lk" aria-label="Пример экрана личного кабинета партнёра">
+        <figcaption class="lk-label">Пример экрана · личный кабинет партнёра</figcaption>
+        <div class="lk-win" aria-hidden="true">
+          <div class="lk-bar"><i></i><i></i><i></i><span>Личный кабинет</span></div>
+          <div class="lk-body">
+            <ul class="lk-nav"><li class="on">Каталог</li><li>Корзина</li><li>Заказы</li><li>Документы</li><li>Материалы</li></ul>
+            <div class="lk-main">
+              <div class="lk-h">Каталог · Интерактивные панели</div>
+              <div class="lk-row lk-head"><span>Модель</span><span>Цена партнёра</span><span>Наличие</span><span></span></div>
+              <div class="lk-row"><span><b class="sk w1"></b></span><span><b class="sk w2"></b></span><span><b class="sk w3"></b></span><span class="lk-add">В корзину</span></div>
+              <div class="lk-row"><span><b class="sk w1"></b></span><span><b class="sk w2"></b></span><span><b class="sk w3"></b></span><span class="lk-add">В корзину</span></div>
+              <div class="lk-row"><span><b class="sk w1"></b></span><span><b class="sk w2"></b></span><span><b class="sk w3"></b></span><span class="lk-add">В корзину</span></div>
+              <div class="lk-row"><span><b class="sk w1"></b></span><span><b class="sk w2"></b></span><span><b class="sk w3"></b></span><span class="lk-add">В корзину</span></div>
+            </div>
+          </div>
+        </div>
+      </figure>
+      <div class="note"><b>Уже работаете с нами?</b>Войдите в кабинет, чтобы увидеть свои цены и оформить заказ.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<section class="sec" aria-labelledby="clients-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">Заказчики</div>
+        <h2 class="h2" id="clients-h">Нам доверяют</h2>
+      </div>
+    </div>
+    <div class="clients">
+      <div class="client">Газпромнефть</div>
+      <div class="client">Полюс</div>
+      <div class="client">Финансовый университет</div>
+      <div class="client">Школа «Летово»</div>
+      <div class="client">НМИЦ онкологии им. Блохина</div>
+      <div class="client">Росмолодёжь</div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="sec sec-alt" id="request">
+  <div class="wrap form-wrap">
+    <div>
+      <div class="eyebrow">Заявка</div>
+      <h2 class="h2">Расскажите о задаче</h2>
+      <p class="lead">Ответим в течение рабочего дня: подберём технику или предложим проект со сметой.</p>
+      <ul class="next">
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Инженер уточнит детали по телефону или почте</li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Пришлём подборку оборудования или смету</li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Если вы партнёр, откроем доступ в кабинет</li>
+      </ul>
+      <div class="direct">
+        <a href="tel:+74996507802"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg>+7 (499) 650-78-02</a>
+        <a href="mailto:order@ancomp.ru"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg>order@ancomp.ru</a>
+      </div>
+    </div>
+    <form class="card-form js-demo" novalidate>
+      <fieldset>
+        <legend>Что нужно</legend>
+        <div class="radios">
+          <label><input type="radio" name="type" value="buy" checked><span>Купить оборудование</span></label>
+          <label><input type="radio" name="type" value="project"><span>Проект под ключ</span></label>
+          <label><input type="radio" name="type" value="partner"><span>Партнёрство</span></label>
+        </div>
+      </fieldset>
+      <div class="row2">
+        <div class="field"><label class="lbl" for="f-name">Имя</label><input id="f-name" name="name" autocomplete="name"></div>
+        <div class="field"><label class="lbl" for="f-contact">Телефон или почта</label><input id="f-contact" name="contact" autocomplete="email"></div>
+      </div>
+      <div class="field"><label class="lbl" for="f-msg">Комментарий <span class="opt">(необязательно)</span></label><textarea id="f-msg" name="msg" placeholder="Например: 30 интерактивных панелей для школы, поставка в марте"></textarea></div>
+      <label class="agree"><input type="checkbox" name="agree"><span>Согласен на обработку персональных данных по <a href="#">политике конфиденциальности</a></span></label>
+      <button class="btn btn-primary" type="submit">Отправить заявку <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      <p class="form-msg" role="status">Это макет: заявка никуда не отправляется.</p>
+    </form>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section class="sec" id="news">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">Новости</div>
+        <h2 class="h2">Что нового</h2>
+      </div>
+      <a class="link" href="#">Все новости <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+    <div class="news hscroll">
+      <a class="nc" href="#"><div class="top"><div class="ico"><svg class="ic" aria-hidden="true"><use href="#i-server"/></svg></div><time datetime="2026-10-23">23 октября 2026</time></div><h3>ANCOMP получил авторизацию Kraftway на обслуживание серверов TS3100</h3><span class="tag">Сервис</span></a>
+      <a class="nc" href="#"><div class="top"><div class="ico"><svg class="ic" aria-hidden="true"><use href="#i-calc"/></svg></div><time datetime="2026-09-21">21 сентября 2026</time></div><h3>Проекционный калькулятор ANCOMP: быстрый подбор параметров проекции</h3><span class="tag">Инструменты</span></a>
+      <a class="nc" href="#"><div class="top"><div class="ico"><svg class="ic" aria-hidden="true"><use href="#i-msg"/></svg></div><time datetime="2026-09-14">14 сентября 2026</time></div><h3>«Анкомп» теперь в MAX</h3><span class="tag">Компания</span></a>
+    </div>
+    <p class="hint" aria-hidden="true"><svg class="ic"><use href="#i-arrow"/></svg>листайте</p>
+  </div>
+</section>
+
+<!-- SUPPORT / JOBS / SUBSCRIBE -->
+<section class="sec sec-alt" aria-label="Поддержка, вакансии, рассылка">
+  <div class="wrap">
+    <div class="tiles">
+      <a class="tile" href="#"><svg class="ic big" aria-hidden="true"><use href="#i-life"/></svg><h3>Техподдержка</h3><p>Гарантия, ремонт, драйверы и инструкции к технике Ancomp.</p><span class="link">Обратиться <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+      <a class="tile" href="#"><svg class="ic big" aria-hidden="true"><use href="#i-briefcase"/></svg><h3>Вакансии</h3><p>Ищем инженеров, монтажников и менеджеров по продажам.</p><span class="link">Смотреть вакансии <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+      <div class="tile"><svg class="ic big" aria-hidden="true"><use href="#i-mail"/></svg><h3>Рассылка</h3><p>Новинки, проекты и мероприятия раз в месяц.</p>
+        <form class="sub-form js-demo" novalidate><label class="sr" for="sub">E-mail</label><input id="sub" type="email" placeholder="E-mail" autocomplete="email"><button class="btn btn-primary" type="submit">Подписаться</button></form>
+        <p class="form-msg" role="status">Это макет: подписка не оформляется.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="ftr">
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <a class="logo" href="#top" aria-label="Ancomp — на главную"><img src="../../assets/img/logo-white.png" width="1680" height="468" alt="Ancomp"></a>
+        <address>ООО «Анкомп»<br>109316, Москва, Волгоградский пр-т, 32/19</address>
+        <div class="contacts" style="margin-top:16px">
+          <a href="tel:+74992819033"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg>+7 (499) 281-90-33</a>
+          <a href="tel:+74996507802"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg>+7 (499) 650-78-02</a>
+          <a href="mailto:order@ancomp.ru"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg>order@ancomp.ru</a>
+          <a href="mailto:info@ancomp.ru"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg>info@ancomp.ru</a>
+        </div>
+      </div>
+      <details class="fcol" open><summary>Каталог<svg class="ic" aria-hidden="true"><use href="#i-chev"/></svg></summary>
+        <ul><li><a href="#">Интерактивные панели</a></li><li><a href="#">LED-экраны</a></li><li><a href="#">Компьютеры и моноблоки</a></li><li><a href="#">Проекторы</a></li><li><a href="#">Сценический свет</a></li><li><a href="#">Видео-конференц-связь</a></li></ul>
+      </details>
+      <details class="fcol" open><summary>Решения<svg class="ic" aria-hidden="true"><use href="#i-chev"/></svg></summary>
+        <ul><li><a href="#">Конференц-залы и переговорные</a></li><li><a href="#">Образование</a></li><li><a href="#">Культура и сцена</a></li><li><a href="#">Серверные и ЦОД</a></li><li><a href="#">Ритейл и HoReCa</a></li><li><a href="#">Музеи и выставки</a></li><li><a href="#">Диспетчерские и ситуационные центры</a></li></ul>
+      </details>
+      <details class="fcol" open><summary>Компания<svg class="ic" aria-hidden="true"><use href="#i-chev"/></svg></summary>
+        <ul><li><a href="#">О компании</a></li><li><a href="#">Проекты</a></li><li><a href="#">Партнёрам</a></li><li><a href="#">Новости</a></li><li><a href="#">Вакансии</a></li><li><a href="#">Техподдержка</a></li><li><a href="#">Канал в MAX</a></li><li><a href="#">Контакты</a></li></ul>
+      </details>
+    </div>
+    <div class="bottom">
+      <span>© Анкомп 1999–2026</span>
+      <a href="#">Политика конфиденциальности</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var $=function(s){return document.querySelector(s)};
+  var catBtn=$('#catBtn'),mega=$('#mega'),burger=$('#burger'),drawer=$('#drawer'),sBtn=$('#searchBtn'),ms=$('#msearch');
+  function closeMega(){mega.classList.remove('open');catBtn.setAttribute('aria-expanded','false')}
+  catBtn.addEventListener('click',function(e){e.stopPropagation();var o=mega.classList.toggle('open');catBtn.setAttribute('aria-expanded',o)});
+  document.addEventListener('click',function(e){if(mega.classList.contains('open')&&!mega.contains(e.target))closeMega()});
+  function openDrawer(){drawer.classList.add('open');drawer.setAttribute('aria-hidden','false');burger.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';drawer.querySelector('.icon-btn').focus()}
+  function closeDrawer(){drawer.classList.remove('open');drawer.setAttribute('aria-hidden','true');burger.setAttribute('aria-expanded','false');document.body.style.overflow=''}
+  burger.addEventListener('click',openDrawer);
+  drawer.querySelectorAll('[data-close]').forEach(function(el){el.addEventListener('click',closeDrawer)});
+  sBtn.addEventListener('click',function(){var o=ms.classList.toggle('open');sBtn.setAttribute('aria-expanded',o);if(o)ms.querySelector('input').focus()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeMega();if(drawer.classList.contains('open')){closeDrawer();burger.focus()}}});
+
+  // project filter
+  var items=[].slice.call(document.querySelectorAll('#projs .pc')),more=[].slice.call(document.querySelectorAll('#more a'));
+  document.querySelectorAll('.filters button').forEach(function(b){
+    b.addEventListener('click',function(){
+      var f=b.dataset.f;
+      document.querySelectorAll('.filters button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});
+      var first=true;
+      items.forEach(function(it){var show=f==='all'||it.dataset.c===f;it.hidden=!show;it.classList.remove('is-big');if(show&&first){it.classList.add('is-big');first=false}});
+      more.forEach(function(it){it.hidden=!(f==='all'||it.dataset.c===f)});
+    });
+  });
+
+  // footer accordions: open on desktop, collapsed on mobile
+  var mq=window.matchMedia('(max-width:768px)'),fcols=[].slice.call(document.querySelectorAll('.fcol'));
+  function syncF(){fcols.forEach(function(d){d.open=!mq.matches})}
+  syncF();
+  if(mq.addEventListener){mq.addEventListener('change',syncF)}else{mq.addListener(syncF)}
+  fcols.forEach(function(d){d.addEventListener('toggle',function(){if(!mq.matches&&!d.open)d.open=true})});
+
+  // demo forms
+  document.querySelectorAll('form').forEach(function(f){
+    f.addEventListener('submit',function(e){
+      e.preventDefault();
+      var msg=f.querySelector('.form-msg')||f.parentNode.querySelector('.form-msg');
+      if(msg){msg.classList.add('show')}
+    });
+  });
+})();
+</script>
+</body>
+</html>

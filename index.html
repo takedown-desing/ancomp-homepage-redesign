@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Новая главная ancomp.ru</title>
+<meta name="description" content="Концепт новой главной ancomp.ru: анализ, прототип и три варианта дизайна">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#17181E;--coral:#F15B47;--btn:#D23E2A;--gray:#5D6771;--bg2:#F5F5F7;--line:#E4E5EA}
+*{box-sizing:border-box}
+body{margin:0;font-family:Montserrat,system-ui,sans-serif;color:var(--ink);background:#fff;line-height:1.5}
+a{color:inherit}
+a:focus-visible{outline:3px solid var(--coral);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+header{padding:40px 0 24px;border-bottom:1px solid var(--line)}
+header img{height:44px;width:auto;display:block;margin-bottom:28px}
+h1{font-size:clamp(28px,4.4vw,48px);line-height:1.1;font-weight:800;margin:0 0 14px;max-width:820px}
+.lead{font-size:18px;color:var(--gray);max-width:760px;margin:0}
+.tag{display:inline-block;background:var(--bg2);border-radius:20px;padding:4px 12px;font-size:13px;font-weight:600;color:var(--gray);margin-bottom:16px}
+h2{font-size:24px;font-weight:800;margin:48px 0 18px}
+.vars{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.card{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:16px;overflow:hidden;text-decoration:none;background:#fff;transition:box-shadow .2s,transform .2s}
+.card:hover{box-shadow:0 12px 32px rgba(23,24,30,.12);transform:translateY(-2px)}
+.thumb{aspect-ratio:16/10;background:var(--bg2);overflow:hidden}
+.thumb img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.cb{padding:18px 20px 20px;display:flex;flex-direction:column;gap:8px;flex:1}
+.cb .l{font-size:13px;font-weight:700;color:var(--btn);letter-spacing:.04em;text-transform:uppercase}
+.cb h3{margin:0;font-size:20px;font-weight:800}
+.cb p{margin:0;color:var(--gray);font-size:15px}
+.cb .go{margin-top:auto;padding-top:8px;font-weight:700;font-size:15px}
+.shots{display:flex;gap:14px;font-size:14px;color:var(--gray);padding:0 20px 18px}
+.shots a{color:var(--gray)}
+.docs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.doc{border:1px solid var(--line);border-radius:14px;padding:18px;text-decoration:none;display:block;min-height:120px}
+.doc:hover{border-color:var(--ink)}
+.doc b{display:block;font-size:16px;margin-bottom:6px}
+.doc span{color:var(--gray);font-size:14px}
+footer{margin:56px 0 0;padding:24px 0 40px;border-top:1px solid var(--line);color:var(--gray);font-size:14px}
+@media (max-width:900px){.vars{grid-template-columns:minmax(0,1fr)}.docs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.wrap{padding:0 16px}.docs{grid-template-columns:minmax(0,1fr)}.lead{font-size:16px}}
+@media (prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+ <img src="assets/img/logo-transparent.png" alt="Ancomp" width="158" height="44">
+ <span class="tag">Концепт · не финальный дизайн</span>
+ <h1>Как может выглядеть новая главная ancomp.ru</h1>
+ <p class="lead">Разбор текущего сайта и конкурентов, схема блоков и три варианта дизайна в фирменных цветах Анкомпа. Каждый вариант открывается как обычная страница и работает на телефоне.</p>
+</header>
+
+<h2>Три варианта дизайна</h2>
+<div class="vars">
+ <div class="card">
+  <a href="designs/a-vitrina/" style="text-decoration:none;display:flex;flex-direction:column;flex:1">
+   <div class="thumb"><img src="screenshots/a-vitrina-desktop-thumb.jpg" alt="Вариант A, первый экран" width="800" height="500"></div>
+   <div class="cb"><span class="l">Вариант A</span><h3>Витрина</h3><p>Каталог на первом месте. Светлый и воздушный: для дилеров, школ и закупщиков, которые приходят за техникой.</p><span class="go">Открыть макет →</span></div>
+  </a>
+  <div class="shots"><a href="screenshots/a-vitrina-desktop.png">Скриншот десктоп</a><a href="screenshots/a-vitrina-mobile.png">телефон</a></div>
+ </div>
+ <div class="card">
+  <a href="designs/b-proekty/" style="text-decoration:none;display:flex;flex-direction:column;flex:1">
+   <div class="thumb"><img src="screenshots/b-proekty-desktop-thumb.jpg" alt="Вариант B, первый экран" width="800" height="500"></div>
+   <div class="cb"><span class="l">Вариант B</span><h3>Проекты</h3><p>Тёмный, на полный экран — фото реальных объектов. Продаёт через сделанное: центры управления, переговорные, театры.</p><span class="go">Открыть макет →</span></div>
+  </a>
+  <div class="shots"><a href="screenshots/b-proekty-desktop.png">Скриншот десктоп</a><a href="screenshots/b-proekty-mobile.png">телефон</a></div>
+ </div>
+ <div class="card">
+  <a href="designs/c-dve-dorogi/" style="text-decoration:none;display:flex;flex-direction:column;flex:1">
+   <div class="thumb"><img src="screenshots/c-dve-dorogi-desktop-thumb.jpg" alt="Вариант C, первый экран" width="800" height="500"></div>
+   <div class="cb"><span class="l">Вариант C</span><h3>Две дороги</h3><p>Первый экран сразу разводит два пути: купить оборудование или оснастить объект под ключ. Самый сильный блок для партнёров.</p><span class="go">Открыть макет →</span></div>
+  </a>
+  <div class="shots"><a href="screenshots/c-dve-dorogi-desktop.png">Скриншот десктоп</a><a href="screenshots/c-dve-dorogi-mobile.png">телефон</a></div>
+ </div>
+</div>
+
+<h2>Анализ и прототип</h2>
+<div class="docs">
+ <a class="doc" href="prototype/"><b>Прототип</b><span>Схема главной: блоки, порядок, что в каждом и зачем</span></a>
+ <a class="doc" href="https://github.com/takedown-desing/ancomp-homepage-redesign/blob/main/analysis/01-current-site.md"><b>Текущий сайт</b><span>Скорость, цвета, блоки и что мешает</span></a>
+ <a class="doc" href="https://github.com/takedown-desing/ancomp-homepage-redesign/blob/main/analysis/02-competitors.md"><b>Конкуренты</b><span>9 сайтов: что взять и чего избегать</span></a>
+ <a class="doc" href="https://github.com/takedown-desing/ancomp-homepage-redesign/blob/main/changes.md"><b>Что изменили</b><span>И почему так удобнее</span></a>
+</div>
+
+<footer>Фото и логотип — ООО «Анкомп», взяты с ancomp.ru для концепта. Исходники: <a href="https://github.com/takedown-desing/ancomp-homepage-redesign">github.com/takedown-desing/ancomp-homepage-redesign</a></footer>
+</div>
+</body>
+</html>
